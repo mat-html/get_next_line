@@ -6,7 +6,7 @@
 /*   By: jomatic <jomatic@student.42vienna.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:00:07 by jomatic           #+#    #+#             */
-/*   Updated: 2026/07/04 11:53:30 by jomatic          ###   ########.fr       */
+/*   Updated: 2026/07/18 09:45:09 by jomatic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (*s != '\0')
+	while (s != NULL && s[i])
 	{
-		s++;
 		i++;
 	}
 	return (i);
@@ -28,12 +27,14 @@ size_t	ft_strlen(const char *s)
 void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
+	char *ptr;
 
 	i = 0;
+	ptr = s;
 	while (i < n)
 	{
+		ptr[i] = c;
 		i++;
-		*(char *)s++ = c;
 	}
 	return (s);
 }
@@ -63,15 +64,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	char	*ptr;
 	size_t	j;
+	size_t len1;
+	size_t len2;
 
 	i = 0;
 	j = 0;
-	ptr = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
-	while (i < (ft_strlen(s1) + ft_strlen(s2)))
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	ptr = ft_calloc((len1 + len2 + 1), sizeof(char));
+	while (i < (len1 + len2))
 	{
-		while (i < (ft_strlen(s1) + ft_strlen(s2)))
+		while (i < (len1 + len2))
 		{
-			if (i < ft_strlen(s1))
+			if (i < len1)
 			{
 				ptr[i] = *s1;
 				s1++;
@@ -89,11 +94,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char *find_new_line(char *stash)
 {
-	while (stash)
+	size_t	i;
+	
+	i = 0;
+	if (!stash)
+		return (NULL);
+	while (stash[i] && stash)
 	{
-		if(*stash == '\n')
-				return (stash);
-		stash++;
+		if(stash[i] == '\n')
+			return (&stash[i]);
+		i++;
 	}
 	return (NULL);
 }
