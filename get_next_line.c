@@ -6,16 +6,16 @@
 /*   By: jomatic <jomatic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 18:16:09 by jomatic           #+#    #+#             */
-/*   Updated: 2026/07/21 15:12:21 by jomatic          ###   ########.fr       */
+/*   Updated: 2026/07/21 16:25:08 by jomatic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *read_file(int fd, char *stash)
+char	*read_file(int fd, char *stash)
 {
-	char *buff;
-	int readed;
+	char	*buff;
+	int		readed;
 
 	readed = 1;
 	while (!find_new_line(stash) && readed != 0)
@@ -27,10 +27,10 @@ char *read_file(int fd, char *stash)
 		buff[readed] = '\0';
 		stash = ft_strjoin(stash, buff);
 		free (buff);
-		if(!stash)
+		if (!stash)
 			stash = NULL;
 	}
-	return (stash);	
+	return (stash);
 }
 
 char	*ft_get_line(char *stash)
@@ -38,7 +38,7 @@ char	*ft_get_line(char *stash)
 	size_t	i;
 	char	*line;
 
-	i =	0;
+	i = 0;
 	if (!stash)
 		return (NULL);
 	while (stash[i] && stash[i] != '\n')
@@ -46,29 +46,29 @@ char	*ft_get_line(char *stash)
 	line = ft_calloc((i + 2), sizeof(char));
 	i = 0;
 	while (stash[i] && stash[i] != '\n')
-	{	
+	{
 		line[i] = stash[i];
 		i++;
 	}
 	line[i] = '\n';
 	line[++i] = '\0';
-	return (line);	
+	return (line);
 }
 
 char	*ft_get_rest(char *line, char *stash)
 {
-	size_t i;
-	size_t j;
-	char *rest;
+	size_t	i;
+	size_t	j;
+	char	*rest;
 
 	i = ft_strlen(line);
 	j = 0;
 	if (!stash[i])
 		return (free(stash), NULL);
 	while (stash[i++])
-		j++;	
+		j++;
 	rest = ft_calloc((j + 1), sizeof(char));
-	if(rest)
+	if (rest)
 	{
 		i = ft_strlen(line);
 		j = 0;
@@ -79,38 +79,33 @@ char	*ft_get_rest(char *line, char *stash)
 			i++;
 		}
 		rest[j] = '\0';
-		return(free(stash), rest);
+		return (free(stash), rest);
 	}
-	free(stash);
-	stash = NULL;
-	return(NULL);
+	return (free(stash), NULL);
 }
 
 char	*get_next_line(int fd)
 {
-	static char *buffer;
+	static char	*buffer;
 	char		*line;
-	//char		*temp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-			return (NULL);
+		return (NULL);
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 	{
 		buffer = NULL;
 		return (NULL);
 	}
-	//buffer = temp;
 	line = ft_get_line(buffer);
 	buffer = ft_get_rest(line, buffer);
 	return (line);
 }
-
-int main()
+/*
+int	main()
 {
-	//char buffer[BUFFER_SIZE];
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open("test_getnextline.txt", O_RDONLY);
 	if (fd == -1)
@@ -126,3 +121,4 @@ int main()
 	close(fd);
 	return (0);
 }
+*/

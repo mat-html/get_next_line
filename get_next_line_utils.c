@@ -6,7 +6,7 @@
 /*   By: jomatic <jomatic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:00:07 by jomatic           #+#    #+#             */
-/*   Updated: 2026/07/21 16:16:11 by jomatic          ###   ########.fr       */
+/*   Updated: 2026/07/21 16:26:35 by jomatic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	if (s)
 		while (s[i])
-		{
 			i++;
-		}
 	return (i);
 }
 
