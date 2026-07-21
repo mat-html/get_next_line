@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomatic <jomatic@student.42vienna.com      +#+  +:+       +#+        */
+/*   By: jomatic <jomatic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/03 18:17:01 by jomatic           #+#    #+#             */
-/*   Updated: 2026/07/18 09:42:41 by jomatic          ###   ########.fr       */
+/*   Updated: 2026/07/21 16:18:26 by jomatic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 char	*get_next_line(int fd);
 void    *ft_calloc(size_t n, size_t size);
-char    *ft_strjoin(char const *s1, char const *s2);
+char    *ft_strjoin(char *s1, char *s2);
 char *find_new_line(char *stash);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *s, int c, size_t n);

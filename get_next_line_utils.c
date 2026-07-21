@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomatic <jomatic@student.42vienna.com      +#+  +:+       +#+        */
+/*   By: jomatic <jomatic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:00:07 by jomatic           #+#    #+#             */
-/*   Updated: 2026/07/18 09:45:09 by jomatic          ###   ########.fr       */
+/*   Updated: 2026/07/21 16:16:11 by jomatic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s != NULL && s[i])
-	{
-		i++;
-	}
+	if (s)
+		while (s[i])
+		{
+			i++;
+		}
 	return (i);
 }
 
 void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
-	char *ptr;
+	char	*ptr;
 
 	i = 0;
 	ptr = s;
@@ -59,49 +60,41 @@ void	*ft_calloc(size_t n, size_t size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	char	*ptr;
 	size_t	j;
-	size_t len1;
-	size_t len2;
 
 	i = 0;
 	j = 0;
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	ptr = ft_calloc((len1 + len2 + 1), sizeof(char));
-	while (i < (len1 + len2))
+	ptr = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if (!ptr)
+		return (free(s1), NULL);
+	while (s1 && s1[i] != '\0')
 	{
-		while (i < (len1 + len2))
-		{
-			if (i < len1)
-			{
-				ptr[i] = *s1;
-				s1++;
-				i++;
-				break ;
-			}
-			ptr[i] = s2[j];
-			j++;
-			i++;
-		}
+		ptr[i] = s1[i];
+		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	while (s2 && s2[j] != '\0')
+	{
+		ptr[i + j] = s2[j];
+		j++;
+	}
+	ptr[i + j] = '\0';
+	return (free(s1), ptr);
 }
 
-char *find_new_line(char *stash)
+char	*find_new_line(char *stash)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!stash)
 		return (NULL);
-	while (stash[i] && stash)
+	while (stash[i])
 	{
-		if(stash[i] == '\n')
+		if (stash[i] == '\n')
 			return (&stash[i]);
 		i++;
 	}
